@@ -1,4 +1,4 @@
-{ pkgs, lib, systemSettings, userSettings, ... }:
+{ pkgs, lib, systemSettings, userSettings, fetchFromgitHub, ... }:
 {
   imports = 
   [
@@ -6,6 +6,9 @@
     ../../system/style/stylix.nix
     ../../system/admin/doas.nix
     ../../system/admin/automount.nix
+    ../../system/wm/gnome.nix
+    ../../system/admin/pipewire.nix
+    ../../system/admin/disko.nix
   ];
 
   nix.nixPath = [
@@ -81,9 +84,15 @@
     xkb.layout = "gb";
     xkb.variant = "";
   };
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.displayManager.lightdm.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
+  # dwm
+  services.xserver.windowManager.dwm.enable = true;
+  services.xserver.windowManager.dwm.package = pkgs.dwm.overrideAttrs {
+    src = ../../suckless/dwm;
+  };
+  
   console.keyMap = "uk";
 
   # systemwide packages

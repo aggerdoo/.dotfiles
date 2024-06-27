@@ -13,18 +13,19 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "bcachefs" ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/f278e169-3855-4652-9862-181ae56a1844";
-      fsType = "btrfs";
-      options = [ "subvol=@" ];
-    };
+  #fileSystems."/" =
+  #  { device = "/dev/disk/by-uuid/f278e169-3855-4652-9862-181ae56a1844";
+  #    fsType = "bcachefs";
+  #    options = [ "subvol=@" ];
+  #  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F948-97B5";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+  #fileSystems."/boot" =
+  #  { device = "/dev/disk/by-uuid/F948-97B5";
+  #    fsType = "vfat";
+  #    options = [ "fmask=0022" "dmask=0022" ];
+  #  };
 
   swapDevices = [ ];
 

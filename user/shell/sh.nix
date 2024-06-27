@@ -24,7 +24,16 @@ in
   
   programs.fish = {
     enable = true;
+    functions = {
+      fish_greeting = "";
+    };
+    interactiveShellInit = "fastfetch";
+    
     shellAliases = myAliases;
+  };
+
+  programs.zellij = {
+    enableFishIntegration = true;
   };
 
   programs.starship = {
@@ -32,8 +41,29 @@ in
     enableBashIntegration = true;
     enableFishIntegration = true;
     settings = {
+      #pallete = "everforest";
+      palette.everforest = {
+        base00 = "2f383e"; # bg0,       palette1 dark (medium)
+        base01 = "374247"; # bg1,       palette1 dark (medium)
+        base02 = "4a555b"; # bg3,       palette1 dark (medium)
+        base03 = "859289"; # grey1,     palette2 dark
+        base04 = "9da9a0"; # grey2,     palette2 dark
+        base05 = "d3c6aa"; # fg,        palette2 dark
+        base06 = "e4e1cd"; # bg3,       palette1 light (medium)
+        base07 = "fdf6e3"; # bg0,       palette1 light (medium)
+        base08 = "7fbbb3"; # blue,      palette2 dark
+        base09 = "d699b6"; # purple,    palette2 dark
+        base0A = "dbbc7f"; # yellow,    palette2 dark
+        base0B = "83c092"; # aqua,      palette2 dark
+        base0C = "e69875"; # orange,    palette2 dark
+        base0D = "a7c080"; # green,     palette2 dark
+        base0E = "e67e80"; # red,       palette2 dark
+        base0F = "eaedc8"; # bg_visual, palette1 dark (medium)
+      };
       add_newline = false;
-      format = [
+      command_timeout = 500;
+      follow_symlinks = true;
+      format = builtins.concatStringsSep "" [
         "$username"
         "$hostname"
         "$directory"
@@ -44,15 +74,27 @@ in
         "$line_break"
         "$python"
         "$character"
+        "$nix_shell"
       ];
-      directory = { style = "blue"; };
+      username = {
+        show_always = true;
+        style_user = "bg:base03 fg:base0A";
+        style_root = "bg:base03 fg:base0E";
+      };
+      directory = { 
+        format = "[$path]($style)";
+        style = "blue"; 
+        truncation_length = 3;
+        truncation_symbol = "…/";
+      };
       character = {
         success_symbol = "[❯](purple)";
         error_symbol = "[❯](red)";
         vimcmd_symbol = "[❮](green)";
       };
       git_branch = {
-        format = "[$branch]($style)";
+        symbol = "  ";
+        format = "[$symbol$branch]($style)";
         style = "bright-black";
       };
       git_status = {
@@ -67,24 +109,29 @@ in
         stashed = "↪ ";
       };
       git_state = {
-        format = " '\([$state( $progress_current/$progress_total)]($style)\) '";
+        format = "[\($state($progress_current of $progress_total)\)]($style) ";
         style = "bright-black";
       };
       cmd_duration = {
-        format = "[$duration]($style)";
+        format = " took [$duration]($style)";
         style = "yellow";
       };
       python = {
         format = "[$virtualenv]($style)";
         style = "bright-black";
       };  
+      nix_shell = {
+        disabled = false;
+        #format = "[${pad.left}](fg:white)[ ](bg:white fg:black)[${pad.right}](fg:white) ";
+      };
     };
   };
 
   home.packages = with pkgs; [
     disfetch fastfetch eza bat
     fd btop direnv nix-direnv
-    onefetch gnugrep 
+    onefetch gnugrep nix-output-monitor
+    zellij
   ];
 
   #programs.direnv.enable = true;

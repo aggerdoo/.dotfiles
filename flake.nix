@@ -1,7 +1,7 @@
 {
   description = "Flake";
 
-  outputs = inputs@ { self, lix-module, home-manager, nixpkgs, stylix, ... }:
+  outputs = inputs@ { self, lix-module, home-manager, nixpkgs, stylix, disko, ... }:
     let
       # System Setting
       systemSettings = {
@@ -105,6 +105,7 @@
           modules = [
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
             #inputs.stylix.nixosModules.stylix
+            disko.nixosModules.disko
             lix-module.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager = {
@@ -153,6 +154,10 @@
           inputs.lix.follows = "lix";
           inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        # disko
+        disko.url = "github:nix-community/disko";
+        disko.inputs.nixpkgs.follows = "nixpkgs";
 
         # stylix
         stylix = {

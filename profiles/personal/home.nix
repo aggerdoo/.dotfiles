@@ -8,7 +8,8 @@
 
   imports = [
     ../../user/app/git/git.nix
-    ../../user/shell/sh.nix 
+    ../../user/shell/sh.nix
+    ../../user/app/fastfetch/fastfetch.nix 
   ];
 
   home.stateVersion = "24.05";
