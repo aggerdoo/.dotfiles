@@ -1,36 +1,34 @@
 { disks ? [ "/dev/vda" ], ... }: {
   disko.devices = {
     disk = {
-      vdb = {
+      vda = {
         device = builtins.elemAt disks 0;
         type = "disk";
         content = {
-          type = "table";
-          format = "gpt";
-          partitions = [
-            {
-              name = "ESP";
+          type = "gpt";
+          #format = "gpt";
+          partitions = {
+              ESP = {
               start = "1MiB";
               end = "1024MiB";
-              bootable = true;
+              #bootable = true;
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+               };
               };
-            }
-            {
-              name = "root";
+              root = {
               start = "1024MiB";
               end = "100%";
-              part-type = "primary";
+              #part-type = "primary";
               content = {
                 type = "filesystem";
                 format = "bcachefs";
                 mountpoint = "/";
               };
-            }
-          ];
+            };
+          };
         };
       };
     };

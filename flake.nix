@@ -106,6 +106,9 @@
             (./. + "/profiles" + ("/" + systemSettings.profile) + "/configuration.nix")
             #inputs.stylix.nixosModules.stylix
             disko.nixosModules.disko
+            {
+              _module.args.disks = [ "/dev/vda" ];
+            }
             lix-module.nixosModules.default
             home-manager.nixosModules.home-manager {
               home-manager = {
