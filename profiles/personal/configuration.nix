@@ -99,8 +99,7 @@
   environment.systemPackages = with pkgs; [
     wget
     helix
-    #base16-schemes
-    
+    dmenu-rs
     git
     kitty
     firefox
