@@ -78,21 +78,7 @@
         forAllSystems (system: import inputs.nixpkgs { inherit system; });
 
     in {
-     # homeConfigurations = {
-     #   user = home-manager.lib.homeManagerConfiguration {
-     #     inherit pkgs;
-     #     modules = [
-     #       (./. + "profiles" + ("/" + systemSettings.profile) + "/home.nix") # loads home nix from selected profile
-     #     ];
-     #     extraSpecialArgs = {
-     #       inherit pkgs-stable ;
-     #       inherit systemSettings;
-     #       inherit userSettings;
-     #       inherit inputs;
-     #     };
-     #   };
-     # };
-
+    
       nixosConfigurations = {
         grimoire = lib.nixosSystem {
           system = systemSettings.system;
