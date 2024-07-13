@@ -6,7 +6,7 @@
     ../../system/style/stylix.nix
     ../../system/admin/doas.nix
     ../../system/admin/automount.nix
-    ../../system/wm/gnome.nix
+    #../../system/wm/gnome.nix
     ../../system/admin/pipewire.nix
     ../../system/admin/disko.nix
   ];
@@ -42,7 +42,10 @@
 
   # kernel-modules
   boot.kernelModules = [ "kvm-amd" ];
-
+  
+  # latest kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  
   # bootloader
   boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;
   boot.loader.efi.canTouchEfiVariables = if (systemSettings.bootMode == "uefi") then true else false;
