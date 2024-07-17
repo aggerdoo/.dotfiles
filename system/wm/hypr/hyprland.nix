@@ -16,12 +16,12 @@
     enable = true;
     systemd.enable = true;
     extraConfig = ''
-      exec-once systemctl --user import-enviroment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-      exec dbus-upadate-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      exec-once = systemctl --user import-enviroment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+      exec = dbus-upadate-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
       exec-once = dunst
       exec = pkill waybar & sleep 0.5 && waybar
-      exec-once systemctl --user restart pipewire
+      exec-once = systemctl --user restart pipewire
 
       input {
         kb_layout = gb
@@ -40,7 +40,7 @@
         layout = dwindle
         allow_tearing = false
       }
-      decoration = {
+      decoration {
         rounding = 10
         blur {
           enabled = true
