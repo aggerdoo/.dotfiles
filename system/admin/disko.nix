@@ -9,16 +9,16 @@
           partitions = {
             ESP = {
               type = "EF00";
-              size = "2048";
+              size = "2048M";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "boot";
+                mountpoint = "/boot";
               };
             };
             root = {
               name = "nixroot";
-              end = "-0";
+              size = "100%";
               content = {
                 type = "filesystem";
                 format = "bcachefs";
